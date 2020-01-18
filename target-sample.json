@@ -1,0 +1,10 @@
+{
+    "Rule": "Contract-5m",
+    "Targets": [
+        {
+            "Id": "myid",
+            "Arn": "arn:aws:lambda:ap-southeast-2:<aws account id>:function:exzyle-hitman:latest",
+            "Input": "{\"contract\": {\"TARGET\": \"https://requestloggerbin.herokuapp.com/bin/9f79e603-ee21-4ab4-bcc2-b2427682f6d7\",\"CHANCE\":\"1.0\"}}"
+        }
+    ]
+}

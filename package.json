@@ -33,6 +33,9 @@
     "create-schedule": "claudia add-scheduled-event --name 'Contract-5m' --rate '5 minutes' --event /dev/null --version production",
     "update-schedule": "aws events put-rule --cli-input-json file://recurrence.json",
     "test-lambda": "claudia test-lambda --event event.json",
+    "list-targets": "aws events list-targets-by-rule --rule Contract-5m",
+    "put-targets": "aws events put-targets --cli-input-json file://target.json",
+    "remove-targets": "#aws events remove-targets --rule Contact-5m --ids \"\" \"\" ",
     "doc": "typedoc"
   },
   "devDependencies": {
