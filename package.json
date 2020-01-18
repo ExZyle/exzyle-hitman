@@ -32,7 +32,8 @@
     "release": "claudia set-version --version production",
     "create-schedule": "claudia add-scheduled-event --name 'Contract-5m' --rate '5 minutes' --event /dev/null --version production",
     "update-schedule": "aws events put-rule --cli-input-json file://recurrence.json",
-    "test-lambda": "claudia test-lambda --event event.json"
+    "test-lambda": "claudia test-lambda --event event.json",
+    "doc": "typedoc"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.39",
@@ -42,6 +43,7 @@
     "gts": "^1.1.2",
     "jest": "^24.9.0",
     "ts-jest": "^24.3.0",
+    "typedoc": "^0.16.7",
     "typescript": "~3.7.0"
   },
   "dependencies": {
