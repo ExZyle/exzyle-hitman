@@ -1,0 +1,6 @@
+{
+    "contract": {
+        "TARGET": "https://requestloggerbin.herokuapp.com",
+        "CHANCE": "0.6"
+    }
+}

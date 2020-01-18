@@ -1,0 +1,7 @@
+{
+  "lambda": {
+    "role": "exzyle-hitman-executor",
+    "name": "exzyle-hitman",
+    "region": "ap-southeast-2"
+  }
+}

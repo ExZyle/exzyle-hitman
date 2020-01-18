@@ -1,0 +1,7 @@
+{
+    "Name": "Contract-5m",
+    "ScheduleExpression": "rate(5 minutes)",
+    "EventPattern": "",
+    "State": "ENABLED",
+    "Description": "Schedule hitman to execute it's contract every 5 minutes."
+}
