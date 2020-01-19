@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const superagent = require("superagent");
 const url_1 = require("url");
+const UserAgent = require("user-agents");
 /**
  *
  * @param event The event triggering the call.
@@ -17,6 +18,7 @@ async function fire(event, context) {
         contract = {
             TARGET: process.env['TARGET'],
             CHANCE: parseFloat((_a = process.env['CHANCE'], (_a !== null && _a !== void 0 ? _a : '1'))),
+            AGENT: process.env['AGENT'],
         };
     }
     console.log('Validating target 🔗');
@@ -37,9 +39,17 @@ async function fire(event, context) {
         console.log(`${roll} >= ${contract.CHANCE} - not this time! ☘`);
         return 'Contract was cancelled by dice roll.';
     }
+    if (!contract.AGENT) {
+        const userAgent = new UserAgent();
+        console.log(`Adding mask 🎭 ${userAgent.toString()}`);
+        console.log('Altering fingerprint 🕵️‍♀️', JSON.stringify(userAgent.data, null, 2));
+        contract.AGENT = userAgent.toString();
+    }
     console.log('Acquiring taget 🔭', url.toString());
     try {
-        const response = await superagent.get(url.toString());
+        const response = await superagent
+            .get(url.toString())
+            .set('User-Agent', contract.AGENT);
         console.log('Hitman is done! ☠', url.toString());
         return {
             message: `Hitman is done! ☠ ${url.toString()}`,
