@@ -2,6 +2,7 @@ import { Context, ScheduledEvent } from 'aws-lambda';
 
 import superagent = require('superagent');
 import { URL } from 'url';
+import UserAgent = require('user-agents');
 
 interface Contract {
   TARGET: string;
@@ -47,9 +48,18 @@ export async function fire(event: TargetEvent, context: Context) {
     return 'Contract was cancelled by dice roll.';
   }
 
+  const userAgent = new UserAgent();
+  console.log(`Adding mask 🎭 ${userAgent.toString()}`);
+  console.log(
+    'Altering fingerprint 🕵️‍♀️',
+    JSON.stringify(userAgent.data, null, 2)
+  );
+
   console.log('Acquiring taget 🔭', url.toString());
   try {
-    const response = await superagent.get(url.toString());
+    const response = await superagent
+      .get(url.toString())
+      .set('User-Agent', userAgent.toString());
     console.log('Hitman is done! ☠', url.toString());
     return {
       message: `Hitman is done! ☠ ${url.toString()}`,

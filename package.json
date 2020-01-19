@@ -43,6 +43,7 @@
     "@types/jest": "^24.0.25",
     "@types/node": "^10.17.13",
     "@types/superagent": "^4.1.4",
+    "@types/user-agents": "^1.0.0",
     "claudia": "^5.12.0",
     "gts": "^1.1.2",
     "jest": "^24.9.0",
@@ -52,6 +53,7 @@
   },
   "dependencies": {
     "aws-lambda": "^1.0.5",
-    "superagent": "^5.2.1"
+    "superagent": "^5.2.1",
+    "user-agents": "^1.0.505"
   }
 }
