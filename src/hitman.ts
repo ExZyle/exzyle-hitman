@@ -7,6 +7,7 @@ import UserAgent = require('user-agents');
 interface Contract {
   TARGET: string;
   CHANCE: number;
+  AGENT?: string;
 }
 
 interface TargetEvent extends ScheduledEvent {
@@ -27,6 +28,7 @@ export async function fire(event: TargetEvent, context: Context) {
     contract = {
       TARGET: process.env['TARGET']!,
       CHANCE: parseFloat(process.env['CHANCE'] ?? '1'), // tslint:disable-line:ban
+      AGENT: process.env['AGENT'],
     };
   }
 
@@ -48,18 +50,21 @@ export async function fire(event: TargetEvent, context: Context) {
     return 'Contract was cancelled by dice roll.';
   }
 
-  const userAgent = new UserAgent();
-  console.log(`Adding mask 🎭 ${userAgent.toString()}`);
-  console.log(
-    'Altering fingerprint 🕵️‍♀️',
-    JSON.stringify(userAgent.data, null, 2)
-  );
+  if (!contract.AGENT) {
+    const userAgent = new UserAgent();
+    console.log(`Adding mask 🎭 ${userAgent.toString()}`);
+    console.log(
+      'Altering fingerprint 🕵️‍♀️',
+      JSON.stringify(userAgent.data, null, 2)
+    );
+    contract.AGENT = userAgent.toString();
+  }
 
   console.log('Acquiring taget 🔭', url.toString());
   try {
     const response = await superagent
       .get(url.toString())
-      .set('User-Agent', userAgent.toString());
+      .set('User-Agent', contract.AGENT);
     console.log('Hitman is done! ☠', url.toString());
     return {
       message: `Hitman is done! ☠ ${url.toString()}`,
